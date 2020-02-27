@@ -1,4 +1,9 @@
-import { Injectable, Inject, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookRepository } from './books.repository';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -38,5 +43,16 @@ export class BooksService {
       );
     }
     return { statusCode: '201', book };
+  }
+
+  async updateBookById(
+    id: number,
+    createBookDto: CreateBookDto,
+  ): Promise<{ statusCode: string; book: Book }> {
+    const book = await this.bookRepository.updateBookById(id, createBookDto);
+    if (!book) {
+      throw new InternalServerErrorException(`Update Book ${id} error`);
+    }
+    return { statusCode: '200', book };
   }
 }

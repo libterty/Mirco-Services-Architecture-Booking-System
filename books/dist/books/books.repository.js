@@ -131,6 +131,35 @@ var BookRepository = /** @class */ (function (_super) {
             });
         });
     };
+    BookRepository.prototype.updateBookById = function (id, createBookDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var title, author, numberPages, publisher, book, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        title = createBookDto.title, author = createBookDto.author, numberPages = createBookDto.numberPages, publisher = createBookDto.publisher;
+                        return [4 /*yield*/, books_entity_1.Book.findOne({ where: { id: id } })];
+                    case 1:
+                        book = _a.sent();
+                        book.title = title ? title : book.title;
+                        book.author = author ? author : book.author;
+                        book.numberPages = numberPages ? numberPages : book.numberPages;
+                        book.publisher = publisher ? publisher : book.publisher;
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, book.save()];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_3 = _a.sent();
+                        throw new common_1.InternalServerErrorException("" + error_3);
+                    case 5: return [2 /*return*/, book];
+                }
+            });
+        });
+    };
     BookRepository = __decorate([
         typeorm_1.EntityRepository(books_entity_1.Book)
     ], BookRepository);

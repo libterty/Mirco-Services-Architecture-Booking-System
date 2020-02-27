@@ -54,4 +54,24 @@ export class BookRepository extends Repository<Book> {
       return book;
     }
   }
+
+  async updateBookById(
+    id: number,
+    createBookDto: CreateBookDto,
+  ): Promise<Book> {
+    const { title, author, numberPages, publisher } = createBookDto;
+
+    const book = await Book.findOne({ where: { id } });
+    book.title = title ? title : book.title;
+    book.author = author ? author : book.author;
+    book.numberPages = numberPages ? numberPages : book.numberPages;
+    book.publisher = publisher ? publisher : book.publisher;
+
+    try {
+      await book.save();
+    } catch (error) {
+      throw new InternalServerErrorException(`${error}`);
+    }
+    return book;
+  }
 }

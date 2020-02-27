@@ -8,6 +8,7 @@ import {
   Query,
   Param,
   ParseIntPipe,
+  Put,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -36,5 +37,13 @@ export class BooksController {
     @Body() createBookDto: CreateBookDto,
   ): Promise<{ statusCode: string; book: Book }> {
     return this.booksService.createBook(createBookDto);
+  }
+
+  @Put('/:id')
+  updateBookById(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() createBookDto: CreateBookDto,
+  ): Promise<{ statusCode: string; book: Book }> {
+    return this.booksService.updateBookById(id, createBookDto);
   }
 }

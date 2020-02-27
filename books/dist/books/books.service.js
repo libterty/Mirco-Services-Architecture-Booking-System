@@ -103,6 +103,22 @@ var BooksService = /** @class */ (function () {
             });
         });
     };
+    BooksService.prototype.updateBookById = function (id, createBookDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var book;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.updateBookById(id, createBookDto)];
+                    case 1:
+                        book = _a.sent();
+                        if (!book) {
+                            throw new common_1.InternalServerErrorException("Update Book " + id + " error");
+                        }
+                        return [2 /*return*/, { statusCode: '200', book: book }];
+                }
+            });
+        });
+    };
     BooksService = __decorate([
         common_1.Injectable(),
         __param(0, typeorm_1.InjectRepository(books_repository_1.BookRepository)),
