@@ -31,6 +31,9 @@ var BooksController = /** @class */ (function () {
     BooksController.prototype.updateBookById = function (id, createBookDto) {
         return this.booksService.updateBookById(id, createBookDto);
     };
+    BooksController.prototype.deleteBookById = function (id) {
+        return this.booksService.deleteBookById(id);
+    };
     __decorate([
         common_1.Get(),
         __param(0, common_1.Query()),
@@ -60,6 +63,13 @@ var BooksController = /** @class */ (function () {
         __metadata("design:paramtypes", [Number, create_book_dto_1.CreateBookDto]),
         __metadata("design:returntype", Promise)
     ], BooksController.prototype, "updateBookById", null);
+    __decorate([
+        common_1.Delete('/:id'),
+        __param(0, common_1.Param('id', common_1.ParseIntPipe)),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number]),
+        __metadata("design:returntype", Promise)
+    ], BooksController.prototype, "deleteBookById", null);
     BooksController = __decorate([
         common_1.Controller('books'),
         __metadata("design:paramtypes", [books_service_1.BooksService])

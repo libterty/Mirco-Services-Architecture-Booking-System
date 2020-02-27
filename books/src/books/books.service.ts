@@ -55,4 +55,12 @@ export class BooksService {
     }
     return { statusCode: '200', book };
   }
+
+  async deleteBookById(id: number): Promise<{ statusCode: string }> {
+    const result = await this.bookRepository.delete({ id });
+    if (result.affected === 0) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
+    }
+    return { statusCode: '204' };
+  }
 }

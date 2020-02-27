@@ -9,6 +9,7 @@ import {
   Param,
   ParseIntPipe,
   Put,
+  Delete,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -45,5 +46,12 @@ export class BooksController {
     @Body() createBookDto: CreateBookDto,
   ): Promise<{ statusCode: string; book: Book }> {
     return this.booksService.updateBookById(id, createBookDto);
+  }
+
+  @Delete('/:id')
+  deleteBookById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<{ statusCode: string }> {
+    return this.booksService.deleteBookById(id);
   }
 }

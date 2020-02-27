@@ -119,6 +119,22 @@ var BooksService = /** @class */ (function () {
             });
         });
     };
+    BooksService.prototype.deleteBookById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.delete({ id: id })];
+                    case 1:
+                        result = _a.sent();
+                        if (result.affected === 0) {
+                            throw new common_1.NotFoundException("Book with ID " + id + " not found");
+                        }
+                        return [2 /*return*/, { statusCode: '204' }];
+                }
+            });
+        });
+    };
     BooksService = __decorate([
         common_1.Injectable(),
         __param(0, typeorm_1.InjectRepository(books_repository_1.BookRepository)),
