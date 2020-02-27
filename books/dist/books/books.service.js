@@ -55,6 +55,38 @@ var BooksService = /** @class */ (function () {
     function BooksService(bookRepository) {
         this.bookRepository = bookRepository;
     }
+    BooksService.prototype.getBooks = function (createBookDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var books;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.getBooks(createBookDto)];
+                    case 1:
+                        books = _a.sent();
+                        if (!books) {
+                            throw new common_1.NotFoundException("Book with query " + createBookDto + " not found");
+                        }
+                        return [2 /*return*/, { statusCode: '200', books: books }];
+                }
+            });
+        });
+    };
+    BooksService.prototype.getBookById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var book;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.findOne({ where: { id: id } })];
+                    case 1:
+                        book = _a.sent();
+                        if (!book) {
+                            throw new common_1.NotFoundException("Book with Id " + id + " not found");
+                        }
+                        return [2 /*return*/, { statusCode: '200', book: book }];
+                }
+            });
+        });
+    };
     BooksService.prototype.createBook = function (createBookDto) {
         return __awaiter(this, void 0, void 0, function () {
             var book;
@@ -66,7 +98,39 @@ var BooksService = /** @class */ (function () {
                         if (!book) {
                             throw new common_1.NotFoundException("Task with query \"" + createBookDto + "\" not found");
                         }
+                        return [2 /*return*/, { statusCode: '201', book: book }];
+                }
+            });
+        });
+    };
+    BooksService.prototype.updateBookById = function (id, createBookDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var book;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.updateBookById(id, createBookDto)];
+                    case 1:
+                        book = _a.sent();
+                        if (!book) {
+                            throw new common_1.InternalServerErrorException("Update Book " + id + " error");
+                        }
                         return [2 /*return*/, { statusCode: '200', book: book }];
+                }
+            });
+        });
+    };
+    BooksService.prototype.deleteBookById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.delete({ id: id })];
+                    case 1:
+                        result = _a.sent();
+                        if (result.affected === 0) {
+                            throw new common_1.NotFoundException("Book with ID " + id + " not found");
+                        }
+                        return [2 /*return*/, { statusCode: '204' }];
                 }
             });
         });

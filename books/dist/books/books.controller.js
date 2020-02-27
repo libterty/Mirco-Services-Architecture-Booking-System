@@ -19,9 +19,35 @@ var BooksController = /** @class */ (function () {
     function BooksController(booksService) {
         this.booksService = booksService;
     }
+    BooksController.prototype.getAllBooks = function (createBookDto) {
+        return this.booksService.getBooks(createBookDto);
+    };
+    BooksController.prototype.getBookById = function (id) {
+        return this.booksService.getBookById(id);
+    };
     BooksController.prototype.createBook = function (createBookDto) {
         return this.booksService.createBook(createBookDto);
     };
+    BooksController.prototype.updateBookById = function (id, createBookDto) {
+        return this.booksService.updateBookById(id, createBookDto);
+    };
+    BooksController.prototype.deleteBookById = function (id) {
+        return this.booksService.deleteBookById(id);
+    };
+    __decorate([
+        common_1.Get(),
+        __param(0, common_1.Query()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [create_book_dto_1.CreateBookDto]),
+        __metadata("design:returntype", Promise)
+    ], BooksController.prototype, "getAllBooks", null);
+    __decorate([
+        common_1.Get('/:id'),
+        __param(0, common_1.Param('id', common_1.ParseIntPipe)),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number]),
+        __metadata("design:returntype", Promise)
+    ], BooksController.prototype, "getBookById", null);
     __decorate([
         common_1.Post(),
         __param(0, common_1.Body()),
@@ -29,6 +55,21 @@ var BooksController = /** @class */ (function () {
         __metadata("design:paramtypes", [create_book_dto_1.CreateBookDto]),
         __metadata("design:returntype", Promise)
     ], BooksController.prototype, "createBook", null);
+    __decorate([
+        common_1.Put('/:id'),
+        __param(0, common_1.Param('id', common_1.ParseIntPipe)),
+        __param(1, common_1.Body()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number, create_book_dto_1.CreateBookDto]),
+        __metadata("design:returntype", Promise)
+    ], BooksController.prototype, "updateBookById", null);
+    __decorate([
+        common_1.Delete('/:id'),
+        __param(0, common_1.Param('id', common_1.ParseIntPipe)),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number]),
+        __metadata("design:returntype", Promise)
+    ], BooksController.prototype, "deleteBookById", null);
     BooksController = __decorate([
         common_1.Controller('books'),
         __metadata("design:paramtypes", [books_service_1.BooksService])

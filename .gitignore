@@ -13,3 +13,7 @@
 logs
 *.logs
 *.*.log*
+
+# dist
+
+../dist
