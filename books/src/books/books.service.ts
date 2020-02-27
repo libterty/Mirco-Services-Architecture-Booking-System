@@ -20,6 +20,14 @@ export class BooksService {
     return { statusCode: '200', books };
   }
 
+  async getBookById(id): Promise<{ statusCode: string; book: Book }> {
+    const book = await this.bookRepository.findOne({ where: { id } });
+    if (!book) {
+      throw new NotFoundException(`Book with Id ${id} not found`);
+    }
+    return { statusCode: '200', book };
+  }
+
   async createBook(
     createBookDto: CreateBookDto,
   ): Promise<{ statusCode: string; book: Book }> {

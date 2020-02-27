@@ -22,6 +22,9 @@ var BooksController = /** @class */ (function () {
     BooksController.prototype.getAllBooks = function (createBookDto) {
         return this.booksService.getBooks(createBookDto);
     };
+    BooksController.prototype.getBookById = function (id) {
+        return this.booksService.getBookById(id);
+    };
     BooksController.prototype.createBook = function (createBookDto) {
         return this.booksService.createBook(createBookDto);
     };
@@ -32,6 +35,13 @@ var BooksController = /** @class */ (function () {
         __metadata("design:paramtypes", [create_book_dto_1.CreateBookDto]),
         __metadata("design:returntype", Promise)
     ], BooksController.prototype, "getAllBooks", null);
+    __decorate([
+        common_1.Get('/:id'),
+        __param(0, common_1.Param('id', common_1.ParseIntPipe)),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number]),
+        __metadata("design:returntype", Promise)
+    ], BooksController.prototype, "getBookById", null);
     __decorate([
         common_1.Post(),
         __param(0, common_1.Body()),

@@ -6,6 +6,8 @@ import {
   Body,
   Get,
   Query,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -20,6 +22,13 @@ export class BooksController {
     @Query() createBookDto: CreateBookDto,
   ): Promise<{ statusCode: string; books: Book }> {
     return this.booksService.getBooks(createBookDto);
+  }
+
+  @Get('/:id')
+  getBookById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<{ statusCode: string; book: Book }> {
+    return this.booksService.getBookById(id);
   }
 
   @Post()

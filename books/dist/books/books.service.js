@@ -71,6 +71,22 @@ var BooksService = /** @class */ (function () {
             });
         });
     };
+    BooksService.prototype.getBookById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var book;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.findOne({ where: { id: id } })];
+                    case 1:
+                        book = _a.sent();
+                        if (!book) {
+                            throw new common_1.NotFoundException("Book with Id " + id + " not found");
+                        }
+                        return [2 /*return*/, { statusCode: '200', book: book }];
+                }
+            });
+        });
+    };
     BooksService.prototype.createBook = function (createBookDto) {
         return __awaiter(this, void 0, void 0, function () {
             var book;
