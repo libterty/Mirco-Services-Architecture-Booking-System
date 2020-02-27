@@ -55,6 +55,22 @@ var BooksService = /** @class */ (function () {
     function BooksService(bookRepository) {
         this.bookRepository = bookRepository;
     }
+    BooksService.prototype.getBooks = function (createBookDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var books;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bookRepository.getBooks(createBookDto)];
+                    case 1:
+                        books = _a.sent();
+                        if (!books) {
+                            throw new common_1.NotFoundException("Book with query " + createBookDto + " not found");
+                        }
+                        return [2 /*return*/, { statusCode: '200', books: books }];
+                }
+            });
+        });
+    };
     BooksService.prototype.createBook = function (createBookDto) {
         return __awaiter(this, void 0, void 0, function () {
             var book;
@@ -66,7 +82,7 @@ var BooksService = /** @class */ (function () {
                         if (!book) {
                             throw new common_1.NotFoundException("Task with query \"" + createBookDto + "\" not found");
                         }
-                        return [2 /*return*/, { statusCode: '200', book: book }];
+                        return [2 /*return*/, { statusCode: '201', book: book }];
                 }
             });
         });

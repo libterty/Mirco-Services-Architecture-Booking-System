@@ -63,35 +63,70 @@ var BookRepository = /** @class */ (function (_super) {
     function BookRepository() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    BookRepository.prototype.createBook = function (createBookDto) {
+    BookRepository.prototype.getBooks = function (createBookDto) {
         return __awaiter(this, void 0, void 0, function () {
-            var title, author, numberPages, publisher, isExist, book, error_1;
+            var title, author, numberPages, publisher, query, books, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         title = createBookDto.title, author = createBookDto.author, numberPages = createBookDto.numberPages, publisher = createBookDto.publisher;
-                        return [4 /*yield*/, books_entity_1.Book.findOneOrFail({ title: title, author: author })];
+                        query = this.createQueryBuilder('book');
+                        if (title) {
+                            query.andWhere('book.title = :title', { title: title });
+                        }
+                        if (author) {
+                            query.andWhere('book.author = :author', { author: author });
+                        }
+                        if (publisher) {
+                            query.andWhere('book.publisher = :publisher', { publisher: publisher });
+                        }
+                        if (numberPages) {
+                            query.andWhere('book.numberPages <= :numberPages', { numberPages: numberPages });
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, query.getMany()];
+                    case 2:
+                        books = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        throw new common_1.InternalServerErrorException("" + error_1);
+                    case 4: return [2 /*return*/, books];
+                }
+            });
+        });
+    };
+    BookRepository.prototype.createBook = function (createBookDto) {
+        return __awaiter(this, void 0, void 0, function () {
+            var title, author, numberPages, publisher, isExist, book, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        title = createBookDto.title, author = createBookDto.author, numberPages = createBookDto.numberPages, publisher = createBookDto.publisher;
+                        return [4 /*yield*/, books_entity_1.Book.findOne({ title: title })];
                     case 1:
                         isExist = _a.sent();
-                        if (isExist) {
-                            throw new common_1.ConflictException(title + " or " + author + " exist");
-                        }
+                        if (!isExist) return [3 /*break*/, 2];
+                        throw new common_1.ConflictException(title + " exist");
+                    case 2:
                         book = new books_entity_1.Book();
                         book.title = title;
                         book.author = author;
                         book.numberPages = numberPages;
                         book.publisher = publisher;
-                        _a.label = 2;
-                    case 2:
-                        _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, book.save()];
+                        _a.label = 3;
                     case 3:
-                        _a.sent();
-                        return [3 /*break*/, 5];
+                        _a.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, book.save()];
                     case 4:
-                        error_1 = _a.sent();
-                        throw new common_1.InternalServerErrorException("" + error_1.message);
-                    case 5: return [2 /*return*/, book];
+                        _a.sent();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_2 = _a.sent();
+                        throw new common_1.InternalServerErrorException("" + error_2);
+                    case 6: return [2 /*return*/, book];
                 }
             });
         });

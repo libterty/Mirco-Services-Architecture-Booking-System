@@ -10,6 +10,16 @@ export class BooksService {
     @InjectRepository(BookRepository) private bookRepository: BookRepository,
   ) {}
 
+  async getBooks(
+    createBookDto: CreateBookDto,
+  ): Promise<{ statusCode: string; books: Book }> {
+    const books = await this.bookRepository.getBooks(createBookDto);
+    if (!books) {
+      throw new NotFoundException(`Book with query ${createBookDto} not found`);
+    }
+    return { statusCode: '200', books };
+  }
+
   async createBook(
     createBookDto: CreateBookDto,
   ): Promise<{ statusCode: string; book: Book }> {
@@ -19,6 +29,6 @@ export class BooksService {
         `Task with query "${createBookDto}" not found`,
       );
     }
-    return { statusCode: '200', book };
+    return { statusCode: '201', book };
   }
 }
