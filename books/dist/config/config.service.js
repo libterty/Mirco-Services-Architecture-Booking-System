@@ -1,17 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = require("dotenv");
-const fs = require("fs-extra");
-class ConfigService {
-    constructor(filePath) {
+var dotenv_1 = require("dotenv");
+var fs = require("fs-extra");
+var ConfigService = /** @class */ (function () {
+    function ConfigService(filePath) {
         this.envConfig = dotenv_1.parse(fs.readFileSync(filePath));
     }
-    get(key) {
+    ConfigService.prototype.get = function (key) {
         return this.envConfig[key];
-    }
-    getPort(key) {
+    };
+    ConfigService.prototype.getPort = function (key) {
         return Number(this.envConfig[key]);
-    }
-}
+    };
+    return ConfigService;
+}());
 exports.ConfigService = ConfigService;
 //# sourceMappingURL=config.service.js.map

@@ -6,16 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const common_1 = require("@nestjs/common");
-const books_module_1 = require("./books/books.module");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_config_1 = require("./config/typeorm.config");
-let AppModule = class AppModule {
-};
-AppModule = __decorate([
-    common_1.Module({
-        imports: [books_module_1.BooksModule, typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeOrmConfig)],
-    })
-], AppModule);
+var common_1 = require("@nestjs/common");
+var books_module_1 = require("./books/books.module");
+var typeorm_1 = require("@nestjs/typeorm");
+var typeorm_config_1 = require("./config/typeorm.config");
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        common_1.Module({
+            imports: [books_module_1.BooksModule, typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeOrmConfig)],
+        })
+    ], AppModule);
+    return AppModule;
+}());
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

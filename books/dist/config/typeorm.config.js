@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_service_1 = require("./config.service");
-const configService = new config_service_1.ConfigService(`${process.env.NODE_ENV || 'development'}.env`);
+var config_service_1 = require("./config.service");
+var configService = new config_service_1.ConfigService((process.env.NODE_ENV || 'development') + ".env");
 exports.typeOrmConfig = {
     type: 'postgres',
     host: configService.get('host'),

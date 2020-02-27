@@ -6,20 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const common_1 = require("@nestjs/common");
-const config_service_1 = require("./config.service");
-let ConfigModule = class ConfigModule {
-};
-ConfigModule = __decorate([
-    common_1.Module({
-        providers: [
-            {
-                provide: config_service_1.ConfigService,
-                useValue: new config_service_1.ConfigService(`${process.env.NODE_ENV || 'development'}.env`),
-            },
-        ],
-        exports: [config_service_1.ConfigService],
-    })
-], ConfigModule);
+var common_1 = require("@nestjs/common");
+var config_service_1 = require("./config.service");
+var ConfigModule = /** @class */ (function () {
+    function ConfigModule() {
+    }
+    ConfigModule = __decorate([
+        common_1.Module({
+            providers: [
+                {
+                    provide: config_service_1.ConfigService,
+                    useValue: new config_service_1.ConfigService((process.env.NODE_ENV || 'development') + ".env"),
+                },
+            ],
+            exports: [config_service_1.ConfigService],
+        })
+    ], ConfigModule);
+    return ConfigModule;
+}());
 exports.ConfigModule = ConfigModule;
 //# sourceMappingURL=config.module.js.map

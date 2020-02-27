@@ -9,16 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const class_validator_1 = require("class-validator");
-class CreateBookDto {
-}
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    __metadata("design:type", String)
-], CreateBookDto.prototype, "title", void 0);
-__decorate([
-    class_validator_1.IsNotEmpty(),
-    __metadata("design:type", String)
-], CreateBookDto.prototype, "author", void 0);
+var class_validator_1 = require("class-validator");
+var CreateBookDto = /** @class */ (function () {
+    function CreateBookDto() {
+    }
+    __decorate([
+        class_validator_1.IsNotEmpty(),
+        __metadata("design:type", String)
+    ], CreateBookDto.prototype, "title", void 0);
+    __decorate([
+        class_validator_1.IsNotEmpty(),
+        __metadata("design:type", String)
+    ], CreateBookDto.prototype, "author", void 0);
+    return CreateBookDto;
+}());
 exports.CreateBookDto = CreateBookDto;
 //# sourceMappingURL=create-book.dto.js.map
