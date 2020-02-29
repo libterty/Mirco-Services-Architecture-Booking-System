@@ -39,7 +39,7 @@ export class BooksService {
     const book = await this.bookRepository.createBook(createBookDto);
     if (!book) {
       throw new NotFoundException(
-        `Task with query "${createBookDto}" not found`,
+        `Book with query "${createBookDto}" not found`,
       );
     }
     return { statusCode: '201', book };
