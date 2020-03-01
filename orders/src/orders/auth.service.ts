@@ -19,7 +19,7 @@ export class AuthService {
       }
       throw new UnauthorizedException();
     } catch (error) {
-      throw new InternalServerErrorException();
+      throw new UnauthorizedException(`Authorize Timeout`);
     }
   }
 
