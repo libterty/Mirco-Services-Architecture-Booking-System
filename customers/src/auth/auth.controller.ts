@@ -16,11 +16,12 @@ import { User } from './user.entity';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Get('/test')
+  @Get('/user')
   @UseGuards(AuthGuard())
   test(
     @GetUser() user: User,
   ): { statusCode: string; message: string; user: object } {
+    console.log('check log');
     const { id, username } = user;
     return {
       statusCode: 'success',
