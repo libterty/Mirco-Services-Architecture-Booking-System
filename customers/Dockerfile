@@ -1,7 +1,5 @@
 # Node Image
-FROM node:latest
-# Tini init
-RUN apk add --no-cache tini
+FROM node:12-alpine AS base
 # Work Directory
 WORKDIR /customers
 # Package
@@ -14,11 +12,23 @@ RUN npm install --production
 RUN cp -R node_modules prod_node_modules
 # ------ RUN NPM -----------------------
 RUN npm install
+RUN apk add --no-cache --virtual .persistent-deps \
+  curl \
+  openssl \
+  # for node-sass module
+  make \
+  gcc \
+  g++ \
+  python \
+  py-pip \
+  # Install node packages
+  && npm install --silent --save-dev -g \
+  typescript
 
 # ------ RUN As Build ------------------
 FROM dependencies As Build
 COPY . .
-RUN rm -rf ./dist && tsc
+RUN tsc -p .
 
 # ------ RUN As Release ----------------
 FROM base As release
@@ -28,6 +38,4 @@ COPY --from=build /customers/prod_node_modules ./node_modules
 COPY --from=build /customers/dist .
 
 # ------ Execution ---------------------
-CMD ["tini", "node", "main.js"]
-
-
+CMD ["node", "main.js"]

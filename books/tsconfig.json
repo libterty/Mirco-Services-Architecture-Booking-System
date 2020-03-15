@@ -4,9 +4,17 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
+    "baseUrl": "./src",
     "outDir": "./dist",
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
