@@ -2,7 +2,7 @@ version: "3"
 
 services:
   books:
-    image: libterty8186/bookService:latest
+    image: libterty8186/bookservice:latest
     build:
       context: ./books
       dockerfile: dockerfile
@@ -14,9 +14,10 @@ services:
     depends_on:
       - redis
       - rabbitmq
+      - postgres
 
   orders:
-    image: libterty8186/orderService:latest
+    image: libterty8186/orderservice:latest
     build:
       context: ./orders
       dockerfile: dockerfile
@@ -28,9 +29,10 @@ services:
     depends_on:
       - redis
       - rabbitmq
+      - postgres
 
   customers:
-    image: libterty8186/customerService:latest
+    image: libterty8186/customerservice:latest
     build:
       context: ./customers
       dockerfile: dockerfile
@@ -42,6 +44,7 @@ services:
     depends_on:
       - redis
       - rabbitmq
+      - postgres
 
   rabbitmq:
     image: "rabbitmq:3-management"
@@ -67,6 +70,19 @@ services:
       - "6379:6379"
     volumes:
       - "redis_data:/bitnami/redis"
+
+  postgres:
+    restart: always
+    image: postgres:9.6.2
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES="bookservice, customerservice, orderservice"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ../docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
+      - ./pgdata:/var/lib/postgresql/data
 
 volumes:
   redis_data:

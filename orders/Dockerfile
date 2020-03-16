@@ -4,6 +4,7 @@ FROM node:12-alpine AS base
 WORKDIR /orders
 # Package
 COPY package.json .
+COPY production.env .
 # ------ Dependencies Injection --------
 FROM base As dependencies
 # ------ Install as Production ---------
