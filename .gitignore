@@ -16,3 +16,6 @@ logs
 
 # dist
 */dist/
+
+# docker pg data
+pgdata/

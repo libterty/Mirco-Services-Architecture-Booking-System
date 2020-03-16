@@ -4,6 +4,7 @@ FROM node:12-alpine AS base
 WORKDIR /books
 # Package
 COPY package.json .
+COPY production.env .
 # ------ Dependencies Injection --------
 FROM base As dependencies
 # ------ Install as Production ---------
